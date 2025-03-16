@@ -1,0 +1,143 @@
+{
+	"name": "DelimitedText2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileSystem": "techchallenge3"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Febre",
+				"type": "String"
+			},
+			{
+				"name": "dor_olhos",
+				"type": "String"
+			},
+			{
+				"name": "cheiro_sabor",
+				"type": "String"
+			},
+			{
+				"name": "dor_muscular",
+				"type": "String"
+			},
+			{
+				"name": "diarreia",
+				"type": "String"
+			},
+			{
+				"name": "tosse",
+				"type": "String"
+			},
+			{
+				"name": "dor_garganta",
+				"type": "String"
+			},
+			{
+				"name": "dificuldade_respiracao",
+				"type": "String"
+			},
+			{
+				"name": "dor_cabeca",
+				"type": "String"
+			},
+			{
+				"name": "dor_peito",
+				"type": "String"
+			},
+			{
+				"name": "nausea",
+				"type": "String"
+			},
+			{
+				"name": "nariz_ntupido",
+				"type": "String"
+			},
+			{
+				"name": "fadiga",
+				"type": "String"
+			},
+			{
+				"name": "foi_estab_saude",
+				"type": "String"
+			},
+			{
+				"name": "entubado_resp_art",
+				"type": "String"
+			},
+			{
+				"name": "plano_saude",
+				"type": "String"
+			},
+			{
+				"name": "teste_swab",
+				"type": "String"
+			},
+			{
+				"name": "teste_dedo",
+				"type": "String"
+			},
+			{
+				"name": "teste_veia",
+				"type": "String"
+			},
+			{
+				"name": "teste_positivo",
+				"type": "String"
+			},
+			{
+				"name": "restringiu_contato",
+				"type": "String"
+			},
+			{
+				"name": "tem_alcool",
+				"type": "String"
+			},
+			{
+				"name": "tem_mascara",
+				"type": "String"
+			},
+			{
+				"name": "idade",
+				"type": "String"
+			},
+			{
+				"name": "sexo",
+				"type": "String"
+			},
+			{
+				"name": "raca_cor",
+				"type": "String"
+			},
+			{
+				"name": "escolaridade",
+				"type": "String"
+			},
+			{
+				"name": "uf",
+				"type": "String"
+			},
+			{
+				"name": "mes",
+				"type": "String"
+			},
+			{
+				"name": "domicilio",
+				"type": "String"
+			}
+		]
+	}
+}
