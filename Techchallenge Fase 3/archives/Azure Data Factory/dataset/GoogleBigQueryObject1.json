@@ -1,0 +1,16 @@
+{
+	"name": "GoogleBigQueryObject1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "GoogleBigQuery1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "GoogleBigQueryV2Object",
+		"schema": [],
+		"typeProperties": {
+			"dataset": "pnad_covid_mes_9_10_11",
+			"table": "microdados"
+		}
+	}
+}
