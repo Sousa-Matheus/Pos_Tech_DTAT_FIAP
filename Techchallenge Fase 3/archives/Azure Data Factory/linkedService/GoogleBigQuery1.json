@@ -2,18 +2,12 @@
 	"name": "GoogleBigQuery1",
 	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
-		"parameters": {
-			"Query": {
-				"type": "string",
-				"defaultValue": "SELECT *  FROM `basedosdados.br_ibge_pnad_covid.microdados`"
-			}
-		},
 		"annotations": [],
 		"type": "GoogleBigQueryV2",
 		"typeProperties": {
-			"projectId": "basedosdados",
+			"projectId": "basededadospnad",
 			"authenticationType": "ServiceAuthentication",
-			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQEZCMDlBRDY5LTcwMzgtNDc1NS04MTUyLTM4MUM4NEFEMzU0RV9hZjllNzdjMy0wMzNiLTRlMzctYTMyYi1lMWJjYTk1ZTMwM2MiDQp9"
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQEZCMDlBRDY5LTcwMzgtNDc1NS04MTUyLTM4MUM4NEFEMzU0RV9lMzY3Nzk2OC05OWQ4LTQ4YWMtOWU1Ny1jZmNhNzQ0MjAyYmEiDQp9"
 		}
 	}
 }
