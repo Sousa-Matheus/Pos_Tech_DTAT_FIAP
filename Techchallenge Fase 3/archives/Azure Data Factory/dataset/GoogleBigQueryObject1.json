@@ -10,7 +10,7 @@
 		"schema": [],
 		"typeProperties": {
 			"dataset": "pnad_covid_mes_9_10_11",
-			"table": "microdados"
+			"table": "microdados1"
 		}
 	}
 }
