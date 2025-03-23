@@ -5,10 +5,10 @@
 		"factoryName": {
 			"value": "npad-covid-techchallenge3"
 		},
-		"GoogleBigQuery1_keyFileContent": {
+		"AzureDataLakeStorage1_accountKey": {
 			"value": ""
 		},
-		"AzureDataLakeStorage1_accountKey": {
+		"GoogleBigQuery1_keyFileContent": {
 			"value": ""
 		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {

@@ -7,13 +7,13 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "npad-covid-techchallenge3"
 		},
-		"GoogleBigQuery1_keyFileContent": {
-			"type": "secureString",
-			"metadata": "Secure string for 'keyFileContent' of 'GoogleBigQuery1'"
-		},
 		"AzureDataLakeStorage1_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
+		},
+		"GoogleBigQuery1_keyFileContent": {
+			"type": "secureString",
+			"metadata": "Secure string for 'keyFileContent' of 'GoogleBigQuery1'"
 		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"type": "string",
@@ -46,11 +46,11 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
-					"GoogleBigQuery1_keyFileContent": {
-						"value": "[parameters('GoogleBigQuery1_keyFileContent')]"
-					},
 					"AzureDataLakeStorage1_accountKey": {
 						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
+					},
+					"GoogleBigQuery1_keyFileContent": {
+						"value": "[parameters('GoogleBigQuery1_keyFileContent')]"
 					},
 					"AzureDataLakeStorage1_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
