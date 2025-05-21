@@ -1,4 +1,4 @@
-# Tech Challenge 4 - FIAP (Grupo 34)
+# Tech Challenge 4 - 7DTAT FIAP (Grupo 34)
 
 ## 📌 Apresentação do Projeto
 
