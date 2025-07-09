@@ -14,25 +14,45 @@ import spacy
 nlp = spacy.load("pt_core_news_md")
 
 # === 2. Carregamento dos dados ===
-df_candidatos = pd.read_csv("data/df_candidatos.csv")
-df_vagas = pd.read_csv("data/df_vagas.csv")
-df_prospect = pd.read_csv("data/df_prospect.csv")
+df_candidatos = pd.read_csv("C:/Users/Mathw/Documents/GitHub/Pos_Tech_DTAT_FIAP/Datathon Fase 5/data/processed/candidatos.csv", encoding='utf-8')
+df_vagas = pd.read_csv("C:/Users/Mathw/Documents/GitHub/Pos_Tech_DTAT_FIAP/Datathon Fase 5/data/processed/vagas.csv", encoding='utf-8')
+df_prospect = pd.read_csv("C:/Users/Mathw/Documents/GitHub/Pos_Tech_DTAT_FIAP/Datathon Fase 5/data/processed/prospect.csv", encoding='utf-8')
 
 # === 3. Monta textos compostos ===
 df_vagas['texto_vaga_completo'] = (
-    df_vagas['informacoes_basicas_objetivo_vaga'].fillna('') + ' ' +
+    df_vagas['informacoes_basicas_titulo_vaga'].fillna('') + ' ' +
+    df_vagas['perfil_vaga_cidade'].fillna('') + ' ' +
+    df_vagas['perfil_vaga_estado'].fillna('') + ' ' +
+    df_vagas['perfil_vaga_pais'].fillna('') + ' ' +
+    df_vagas['perfil_vaga_nivel profissional'].fillna('') + ' ' +
+    df_vagas['perfil_vaga_nivel_academico'].fillna('') + ' ' +
+    df_vagas['perfil_vaga_nivel_ingles'].fillna('') + ' ' +
+    df_vagas['perfil_vaga_nivel_espanhol'].fillna('') + ' ' +
+    df_vagas['perfil_vaga_areas_atuacao'].fillna('') + ' ' +
     df_vagas['perfil_vaga_principais_atividades'].fillna('') + ' ' +
-    df_vagas['perfil_vaga_competencia_tecnicas_e_comportamentais'].fillna('') + ' ' +
-    df_vagas['perfil_vaga_habilidades_comportamentais_necessarias'].fillna('')
+    df_vagas['perfil_vaga_competencia_tecnicas_e_comportamentais'].fillna('')
 )
 
-df_candidatos['cv_pt_info_profissionais'] = (
+df_vagas['texto_vaga_completo'] = df_vagas['texto_vaga_completo'].str.replace(r'\n+', ' ', regex=True).str.strip()
+
+df_candidatos['texto_candidato_completo'] = (
     df_candidatos['cv_pt'].fillna('') + ' ' +
     df_candidatos['infos_basicas_objetivo_profissional'].fillna('') + ' ' +
+    df_candidatos['infos_basicas_local'].fillna('') + ' ' +
+    df_candidatos['infos_basicas_nome'].fillna('') + ' ' +
     df_candidatos['informacoes_profissionais_titulo_profissional'].fillna('') + ' ' +
     df_candidatos['informacoes_profissionais_conhecimentos_tecnicos'].fillna('') + ' ' +
-    df_candidatos['formacao_e_idiomas_cursos'].fillna('')
+    df_candidatos['informacoes_profissionais_nivel_profissional'].fillna('') + ' ' +
+    df_candidatos['informacoes_profissionais_qualificacoes'].fillna('') + ' ' +
+    df_candidatos['informacoes_profissionais_experiencias'].fillna('') + ' ' +
+    df_candidatos['formacao_e_idiomas_nivel_academico'].fillna('') + ' ' +
+    df_candidatos['formacao_e_idiomas_nivel_ingles'].fillna('') + ' ' +
+    df_candidatos['formacao_e_idiomas_nivel_espanhol'].fillna('') + ' ' +
+    df_candidatos['formacao_e_idiomas_cursos'].fillna('') + ' ' +
+    df_candidatos['formacao_e_idiomas_outro_curso'].fillna('')
 )
+
+df_candidatos['texto_candidato_completo'] = df_candidatos['texto_candidato_completo'].str.replace(r'\n+', ' ', regex=True).str.strip()
 
 # === 4. Merge dos dados ===
 df_ml = df_prospect.copy()
