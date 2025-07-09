@@ -102,7 +102,7 @@ def get_similarity(txt1, txt2):
 
 # === 6. Feature engenharia ===
 df_ml['score_similaridade'] = df_ml.apply(
-    lambda row: get_similarity(row['cv_pt_info_profissionais'], row['texto_vaga_completo']), axis=1
+    lambda row: get_similarity(row['texto_candidato_completo'], row['texto_vaga_completo']), axis=1
 )
 
 df_ml['escolaridade'] = df_ml['formacao_e_idiomas_nivel_academico'].str.lower().map(escolaridade_map)
