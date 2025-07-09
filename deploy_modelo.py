@@ -34,13 +34,15 @@ try:
 
     futuro = modelo.make_future_dataframe(periods=dias)
     previsao = modelo.predict(futuro)
-
+    previsao['ds'] = pd.to_datetime(previsao['ds'], format='%d%m%y')
     # Filtra apenas os dias futuros
     ultima_data_real = df["ds"].max()
     previsao_futura = previsao[previsao["ds"] > ultima_data_real].head(dias)
 
-    # Previsão para amanhã (hoje + 1 dia)
-    valor_amanha = previsao_futura[previsao_futura['ds'] == amanha]['yhat'].values
+
+    # Previsão para amanhã (hoje + 1 dia) - comparando apenas datas
+    valor_amanha = previsao_futura[previsao_futura['ds'].dt.date == amanha.date()]['trend'].values
+
 
     # Verifica se existe previsão para amanhã
     if len(valor_amanha) > 0:
