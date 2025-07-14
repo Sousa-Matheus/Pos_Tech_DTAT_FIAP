@@ -30,11 +30,11 @@ df_prospect = pd.read_csv("C:/Users/Mathw/Documents/GitHub/Pos_Tech_DTAT_FIAP/Da
 print('Dados carregados com sucesso!')
 
 # === 3. Traduzir colunas de texto se necessário ===
-df_vagas['perfil_vaga_competencia_tecnicas_e_comportamentais_pt'] = traduzir_coluna_se_ingles(
-    df_vagas, 
-    'perfil_vaga_competencia_tecnicas_e_comportamentais', 
-    'perfil_vaga_competencia_tecnicas_e_comportamentais_pt'
-)
+# df_vagas['perfil_vaga_competencia_tecnicas_e_comportamentais_pt'] = traduzir_coluna_se_ingles(
+#     df_vagas, 
+#     'perfil_vaga_competencia_tecnicas_e_comportamentais', 
+#     'perfil_vaga_competencia_tecnicas_e_comportamentais_pt'
+# )
 
 # === 4. Monta textos compostos ===
 df_vagas['texto_vaga_completo'] = (
