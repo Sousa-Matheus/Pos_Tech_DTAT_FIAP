@@ -3,6 +3,8 @@ import pandas as pd
 import numpy as np
 import spacy
 import warnings
+from io import BytesIO
+from azure.storage.blob import BlobServiceClient
 from tqdm import tqdm
 tqdm.pandas()
 warnings.filterwarnings("ignore")
@@ -22,10 +24,17 @@ nlp = spacy.load("pt_core_news_md")
 
 print('Modelo spaCy carregado com sucesso!')
 
+
+
 # === 2. Carregamento dos dados ===
-df_candidatos = pd.read_csv("C:/Users/Mathw/Documents/GitHub/Pos_Tech_DTAT_FIAP/Datathon Fase 5/data/processed/candidatos.csv", encoding='utf-8')
-df_vagas = pd.read_csv("C:/Users/Mathw/Documents/GitHub/Pos_Tech_DTAT_FIAP/Datathon Fase 5/data/processed/vagas.csv", encoding='utf-8')
-df_prospect = pd.read_csv("C:/Users/Mathw/Documents/GitHub/Pos_Tech_DTAT_FIAP/Datathon Fase 5/data/processed/prospect.csv", encoding='utf-8')
+
+candidatos_url = "https://57datathon.blob.core.windows.net/data/processed/candidatos/candidatos.csv"
+vagas_url = "https://57datathon.blob.core.windows.net/data/processed/vagas/vagas.csv"
+prospect_url = "https://57datathon.blob.core.windows.net/data/processed/prospect/prospect.csv"
+
+df_candidatos = pd.read_csv(candidatos_url, encoding='utf-8')
+df_vagas = pd.read_csv(vagas_url, encoding='utf-8')
+df_prospect = pd.read_csv(prospect_url, encoding='utf-8')
 
 print('Dados carregados com sucesso!')
 
@@ -146,6 +155,17 @@ print('Features de escolaridade e idiomas mapeadas com sucesso!')
 
 # === 9. Salvando o DataFrame final ===
 
-df_ml.to_csv("C:/Users/Mathw/Documents/GitHub/Pos_Tech_DTAT_FIAP/Datathon Fase 5/data/processed/modelo_ml.data.csv", index=False, encoding='utf-8')
+connection_string = "DefaultEndpointsProtocol=https;AccountName=57datathon;AccountKey=V1EJu1EdJ/wJ+vPn5OkQ3ydwXQJaFfYfZp0thx1hJ/GPByONbi0U9WM+mdfELCvhAWJFgxDjdkrW+AStRI1IQQ==;EndpointSuffix=core.windows.net"
+container_name = "data"
+blob_name = f"processed/ml_data/modelo_ml.data.csv"
+
+csv_buffer = BytesIO()
+df_ml.to_csv(csv_buffer, index=False)
+csv_buffer.seek(0)
+
+blob_service_client = BlobServiceClient.from_connection_string(connection_string)
+blob_client = blob_service_client.get_blob_client(container=container_name, blob=blob_name)
+
+blob_client.upload_blob(csv_buffer, overwrite=True)
 
 print('Dados preparados para o modelo salvos com sucesso!')

@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import streamlit as st
 import pickle
+import requests
 import spacy
 import warnings
 warnings.filterwarnings("ignore")
@@ -9,6 +10,9 @@ warnings.filterwarnings("ignore")
 st.set_page_config(layout="wide",
                      page_title="Análise de Similaridade de Currículos e Vagas"
                    )
+
+url = "https://meuarquivo.blob.core.windows.net/modelo/modelo_ml.pkl"
+response = requests.get(url)
 
 # Carrega modelo spaCy para similaridade
 nlp = spacy.load("pt_core_news_md")
@@ -21,8 +25,11 @@ def get_similarity(txt1, txt2):
     return 0.0
 
 # === Carregamento dos dados ===
+
+vagas_url = "https://57datathon.blob.core.windows.net/data/processed/vagas/vagas.csv"
+
 df_vagas = pd.read_csv(
-    "C:/Users/Mathw/Documents/GitHub/Pos_Tech_DTAT_FIAP/Datathon Fase 5/data/processed/vagas.csv",
+    vagas_url,
     encoding='utf-8'
 )
 
@@ -84,8 +91,10 @@ if st.button("Calcular Similaridade"):
         st.error("Por favor, insira o texto do currículo.")
     else:
         # Carrega o modelo
-        with open("C:/Users/Mathw/Documents/GitHub/Pos_Tech_DTAT_FIAP/Datathon Fase 5/modelo/modelo_nlp_ml.pkl", "rb") as f:
-            pipeline = pickle.load(f)
+        url = "https://meuarquivo.blob.core.windows.net/modelo/modelo_ml.pkl"
+        response = requests.get(url)
+        pipeline = pickle.loads(response.content)
+
 
         # Cria DataFrame com dados do usuário
         data = {

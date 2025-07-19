@@ -17,7 +17,9 @@ from tqdm import tqdm
 tqdm.pandas()
 warnings.filterwarnings("ignore")
 
-df_ml = pd.read_csv("C:/Users/Mathw/Documents/GitHub/Pos_Tech_DTAT_FIAP/Datathon Fase 5/data/processed/modelo_ml.data.csv", encoding='utf-8')
+ml_data_url = "https://57datathon.blob.core.windows.net/data/processed/ml_data/modelo_ml.data.csv"
+
+df_ml = pd.read_csv(ml_data_url, encoding='utf-8')
 
 # === Features e dados ===
 text_col = 'cv_pt'
