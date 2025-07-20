@@ -3,6 +3,7 @@ import numpy as np
 import streamlit as st
 import requests
 import spacy
+from spacy.util import is_package
 import warnings
 import joblib
 import io
@@ -14,6 +15,9 @@ st.set_page_config(layout="wide",
 
 url = "https://meuarquivo.blob.core.windows.net/modelo/modelo_ml.pkl"
 response = requests.get(url)
+
+if not is_package("pt_core_news_md"):
+    spacy.cli.download("pt_core_news_md")
 
 # Carrega modelo spaCy para similaridade
 @st.cache_resource
