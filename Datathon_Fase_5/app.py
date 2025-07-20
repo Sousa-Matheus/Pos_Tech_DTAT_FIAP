@@ -4,9 +4,10 @@ import streamlit as st
 import requests
 import spacy
 from spacy.util import is_package
-import warnings
+from imblearn.pipeline import Pipeline
 import joblib
 import io
+import warnings
 warnings.filterwarnings("ignore")
 
 st.set_page_config(layout="wide",
@@ -102,7 +103,7 @@ if st.button("Calcular Similaridade"):
 
         @st.cache_resource
         def carregar_modelo():
-            url = "https://57datathon.blob.core.windows.net/modelo/modelo_ml.pkl"
+            url = "https://57datathon.blob.core.windows.net/modelo/modelo_ml.joblib"
             response = requests.get(url)
             return joblib.load(io.BytesIO(response.content))
     
