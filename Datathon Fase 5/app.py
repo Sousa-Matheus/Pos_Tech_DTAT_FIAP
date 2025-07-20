@@ -1,10 +1,11 @@
 import pandas as pd
 import numpy as np
 import streamlit as st
-import pickle
 import requests
 import spacy
 import warnings
+import joblib
+import io
 warnings.filterwarnings("ignore")
 
 st.set_page_config(layout="wide",
@@ -15,7 +16,11 @@ url = "https://meuarquivo.blob.core.windows.net/modelo/modelo_ml.pkl"
 response = requests.get(url)
 
 # Carrega modelo spaCy para similaridade
-nlp = spacy.load("pt_core_news_md")
+@st.cache_resource
+def carregar_spacy():
+    return spacy.load("pt_core_news_md")
+
+nlp = carregar_spacy()
 
 def get_similarity(txt1, txt2):
     if pd.isna(txt1) or pd.isna(txt2): return 0.0
@@ -90,12 +95,13 @@ if st.button("Calcular Similaridade"):
     if not cv_pt:
         st.error("Por favor, insira o texto do currículo.")
     else:
-        # Carrega o modelo
-        url = "https://meuarquivo.blob.core.windows.net/modelo/modelo_ml.pkl"
-        response = requests.get(url)
-        pipeline = pickle.loads(response.content)
 
-
+        @st.cache_resource
+        def carregar_modelo():
+            url = "https://57datathon.blob.core.windows.net/modelo/modelo_ml.pkl"
+            response = requests.get(url)
+            return joblib.load(io.BytesIO(response.content))
+    
         # Cria DataFrame com dados do usuário
         data = {
             'cv_pt': [cv_pt],
@@ -112,8 +118,14 @@ if st.button("Calcular Similaridade"):
         df_input = pd.DataFrame(data)
 
         # === Similaridade entre currículo e vaga ===
-        similaridade = get_similarity(descricao_vaga_selecionada, cv_pt)
-        df_input['score_similaridade'] = [similaridade]
+        with st.spinner("🧠 Aguarde... Estamos calculando a similaridade com a vaga..."):
+
+            # Carrega o modelo
+            pipeline = carregar_modelo()
+
+            # Calcula a similaridade
+            similaridade = get_similarity(descricao_vaga_selecionada, cv_pt)
+            df_input['score_similaridade'] = [similaridade]
 
         # Dados usados no modelo
         df_ml = df_input[['cv_pt', 'escolaridade', 'ingles', 'espanhol', 'score_similaridade']]
@@ -177,7 +189,8 @@ if st.button("Calcular Similaridade"):
         st.write(f"Similaridade com a vaga: **{similaridade * 100:.2f}%**")
         
         if prediction[0] == 1 or similaridade >= 0.7:
-            st.success("✅ O currículo é compatível com a vaga selecionada.")
+            st.success("🎉 O currículo é compatível com a vaga selecionada.")
+            st.balloons()
             st.link_button('Entrar em contato com o recrutador', url='https://www.linkedin.com/company/decisionbr-consultants/?originalSubdomain=br')
         else:
             st.error("❌ O currículo não é compatível com a vaga selecionada.")

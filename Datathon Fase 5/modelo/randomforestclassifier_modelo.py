@@ -10,8 +10,8 @@ from sklearn.metrics import classification_report, accuracy_score
 from sklearn.compose import ColumnTransformer
 from imblearn.over_sampling import SMOTE
 from imblearn.under_sampling import RandomUnderSampler
-import pickle
-import spacy
+import joblib
+from azure.storage.blob import BlobServiceClient
 import warnings
 from tqdm import tqdm
 tqdm.pandas()
@@ -108,7 +108,16 @@ plt.title('Matriz de Confusão')
 plt.show()
 
 # === 11. Salvando o modelo ===
-with open('modelo_ml.pkl', 'wb') as f:
-    pickle.dump(best_model, f)
+joblib.dump(best_model, 'modelo_ml.joblib', compress=3)
+print("Modelo salvo com sucesso!")
 
-print("Modelo salvo como sucesso!")
+# === 12. upload do modelo salvo para blob storage ===
+
+connection_string = "DefaultEndpointsProtocol=https;AccountName=57datathon;AccountKey=V1EJu1EdJ/wJ+vPn5OkQ3ydwXQJaFfYfZp0thx1hJ/GPByONbi0U9WM+mdfELCvhAWJFgxDjdkrW+AStRI1IQQ==;EndpointSuffix=core.windows.net"
+container_name = "modelo"
+blob_name = "modelo_ml.joblib"
+
+with open("modelo_ml.joblib", "rb") as data:
+    blob_service_client = BlobServiceClient.from_connection_string(connection_string)
+    blob_client = blob_service_client.get_blob_client(container=container_name, blob=blob_name)
+    blob_client.upload_blob(data, overwrite=True)
