@@ -97,8 +97,8 @@ Datathon_Fase_5/
 
 ## 🔗 Deploys
 
-- [Aplicação no Streamlit Cloud](#)
-- [Backup no Azure Web App](#)
+- [Aplicação no Streamlit Cloud](https://postechdtatfiap-abbh2oubxjfxpukg4sprz7.streamlit.app/)
+- [Backup no Azure Web App](https://decision-app-agcncecka7gvgdep.eastus2-01.azurewebsites.net/)
 
 ---
 
